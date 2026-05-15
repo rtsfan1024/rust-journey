@@ -40,13 +40,9 @@ jobs:
         with:
           fetch-depth: 0
 
-      # 安装 Rust 稳定版工具链（含 llvm-tools，供覆盖率工具使用）
+      # 安装 Rust 稳定版工具链
       - name: Install Rust
         run: rustup toolchain install stable --component llvm-tools-preview
-
-      # 安装 cargo-llvm-cov：Rust 代码覆盖率工具
-      - name: Install cargo-llvm-cov
-        uses: taiki-e/install-action@cargo-llvm-cov
 
       # 安装 nextest：增强版测试运行器，支持并行、重试等特性
       - name: Install nextest
