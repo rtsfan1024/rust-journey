@@ -31,7 +31,7 @@ jobs:
 
     steps:
       # 拉取仓库代码
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       # 安装 Rust 稳定版工具链
       - name: Install Rust
