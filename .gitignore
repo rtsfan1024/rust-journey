@@ -15,5 +15,8 @@ target/
 .DS_Store
 Thumbs.db
 
+# Windows debug symbols
+*.pdb
+
 # Logs
 *.log
