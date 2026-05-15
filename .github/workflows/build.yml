@@ -29,6 +29,10 @@ jobs:
       - name: Install Rust
         run: rustup toolchain install stable --component llvm-tools-preview
 
+      # 安装 nextest：增强版测试运行器
+      - name: Install nextest
+        uses: taiki-e/install-action@nextest
+
       # 缓存构建产物，加速后续 CI 运行
       - uses: Swatinem/rust-cache@v2
         with:
@@ -44,4 +48,4 @@ jobs:
         run: cargo clippy --all-targets --all-features --tests --benches -- -D warnings
 
       - name: Execute rust tests
-        run: cargo test
+        run: cargo nextest run --all-features
