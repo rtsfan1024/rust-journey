@@ -1,0 +1,12 @@
+# 拼写检查器的白名单配置
+[default.extend-words]
+# 在这里添加你项目中特有的、被工具误认为拼写错误的“正确单词”
+# 例如：某些专有名词、人名拼音、或者特定的技术缩写
+# 格式示例：myword = "myword"
+
+# 文件过滤配置
+[files]
+# 指定不需要进行拼写检查的文件或路径
+# CHANGELOG.md：通常包含大量人名、旧版本遗留拼写或非标准格式，建议排除
+# notebooks/*：Jupyter Notebook 文件包含大量 JSON 噪声或实验性文本，排除可提升扫描效率
+extend-exclude = ["CHANGELOG.md", "notebooks/*"]

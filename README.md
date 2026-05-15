@@ -6,7 +6,8 @@
 
 | 编号 | 项目 | 说明 |
 |------|------|------|
-| 000 | [template](000-template/) | 项目模板 — Hello World |
+| p000 | [template](p000-template/) | 项目模板 — Hello World |
+| p001 | [rustcli](p001-rustcli/) | CLI 工具开发 |
 
 > 更多项目将随学习进度逐步添加，编号表示学习顺序。
 
@@ -30,14 +31,14 @@ pipx install pre-commit             # 提交前检查（可选）
 ### 运行项目
 
 ```bash
-cd 000-template
+cd p000-template
 cargo run
 ```
 
 ### 新建项目
 
 ```bash
-cp -r 000-template 001-新项目名
+cp -r p000-template p001-新项目名
 # 修改 Cargo.toml 中的 name 字段
 # 更新项目内的 README.md 和 CLAUDE.md
 ```
@@ -61,13 +62,13 @@ Rust/
 ├── .rust.md               # 项目架构说明
 ├── README.md              # 本文件
 ├── .gitignore
-├── 000-template/          # 项目模板
+├── p000-template/         # 项目模板
 │   ├── CLAUDE.md          # 项目约定
 │   ├── README.md
 │   ├── Cargo.toml
 │   └── src/
 │       └── main.rs
-├── 001-xxx/               #（待添加）
+├── p001-rustcli/          # CLI 工具开发
 └── ...
 ```
 

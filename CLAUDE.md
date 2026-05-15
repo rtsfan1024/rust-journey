@@ -120,7 +120,7 @@
 
 ## 仓库规范
 
-- 每个项目以 `NNN-名称` 格式命名（如 `000-template`、`001-hello-world`），编号表示学习顺序。
+- 每个项目以 `pNNN-名称` 格式命名（如 `p000-template`、`p001-rustcli`），`p` 前缀 + 编号表示学习顺序。
 - 每个项目必须包含：`Cargo.toml`、`src/main.rs`（或 `src/lib.rs`）、`README.md`、`CLAUDE.md`。
-- 新建项目时，复制 `000-template` 作为起点，修改 `Cargo.toml` 中的 `name` 字段。
+- 新建项目时，复制 `p000-template` 作为起点，修改 `Cargo.toml` 中的 `name` 字段。
 - 提交信息使用中文，格式：`<类型>: <简述>`，类型包括：`feat`、`fix`、`docs`、`refactor`、`test`、`chore`。

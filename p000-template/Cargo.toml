@@ -1,0 +1,20 @@
+[package] # 项目元数据块的开始，定义了该 Crate（包）的基本信息
+name = "template" # 项目名称，编译后生成的二进制文件名或库名
+version = "0.1.0" # 当前项目的语义化版本号 (Semantic Versioning)
+edition = "2021" # 使用的 Rust 语言版本特征集（目前主流为 2021）
+
+# 官方文档链接，用于查阅 Cargo.toml 的所有可用配置项
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies] # 依赖库管理区块，此处暂未添加任何外部依赖（如 serde, tokio 等）
+
+[lints.clippy] # Rust 官方静态分析工具 Clippy 的配置区块，用于控制代码风格和潜在错误检查
+# 开启所有基础 lint 检查，级别设为 "deny"（若违规直接编译失败），优先级设为 -1
+all = { level = "deny", priority = -1 } 
+# 开启严苛模式检查，级别设为 "warn"（若不符合建议则发出警告），优先级同样设为 -1
+pedantic = { level = "warn", priority = -1 } 
+
+# 下面是具体的覆盖项规则：
+# 允许函数拥有较多参数（默认 Clippy 会对此报错）。
+# 因为没有设置 priority，它默认为 0，会覆盖上方 -1 的全局设置。
+too_many_arguments = "allow"
