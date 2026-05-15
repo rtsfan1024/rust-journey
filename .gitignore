@@ -18,5 +18,8 @@ Thumbs.db
 # Windows debug symbols
 *.pdb
 
+# 子项目的 .github（根目录的 .github 正常跟踪）
+*/.github/
+
 # Logs
 *.log
