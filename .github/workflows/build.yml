@@ -31,11 +31,7 @@ jobs:
           fetch-depth: 0
 
       - name: Install Rust
-        run: rustup toolchain install stable --component llvm-tools-preview
-
-      # 安装 cargo-llvm-cov：Rust 代码覆盖率工具
-      - name: Install cargo-llvm-cov
-        uses: taiki-e/install-action@cargo-llvm-cov
+        run: rustup toolchain install stable
 
       # 安装 nextest：增强版测试运行器
       - name: Install nextest
