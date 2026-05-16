@@ -62,8 +62,13 @@ Rust/
 ├── .rust.md               # 项目架构说明
 ├── README.md              # 本文件
 ├── .gitignore
+├── cliff.toml             # changelog 配置（共享）
+├── deny.toml              # 依赖审计配置（共享）
+├── _typos.toml            # 拼写检查配置（共享）
+├── .pre-commit-config.yaml# 提交前检查配置（共享）
+├── .github/workflows/     # CI 配置
 ├── p000-template/         # 项目模板
-│   ├── CLAUDE.md          # 项目约定
+│   ├── CLAUDE.md
 │   ├── README.md
 │   ├── Cargo.toml
 │   └── src/

@@ -13,17 +13,19 @@
 ```
 p000-template/
 ├── CLAUDE.md              # 本文件 — 项目约定
-├── README.md              # 项目说明（来自 Geektime 模板）
+├── README.md              # 项目说明
 ├── Cargo.toml             # 包名、版本、依赖
 ├── Cargo.lock             # 依赖锁定文件
+├── CHANGELOG.md           # 变更日志
 ├── src/
 │   └── main.rs            # 入口文件
-├── assets/                # 静态资源
-├── .gitignore             # 项目级忽略规则
-├── deny.toml              # cargo-deny 配置
-├── cliff.toml             # git-cliff 配置
-├── _typos.toml            # 拼写检查配置
-└── .pre-commit-config.yaml # pre-commit 钩子配置
+└── assets/                # 静态资源
+
+以下配置文件统一放在根目录，所有项目共享：
+- cliff.toml              # git-cliff 配置
+- deny.toml               # cargo-deny 配置
+- _typos.toml             # 拼写检查配置
+- .pre-commit-config.yaml # pre-commit 钩子配置
 ```
 
 ## 运行方式
