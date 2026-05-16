@@ -5,6 +5,8 @@ on:
   push:
     branches:
       - main
+    tags:
+      - v*
   pull_request:
     branches:
       - main
@@ -30,16 +32,26 @@ jobs:
         working-directory: ${{ matrix.project }}
 
     steps:
-      # 拉取仓库代码
+      # 拉取仓库代码（fetch-depth: 0 获取完整历史，供 git-cliff 生成 changelog）
       - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
 
       # 安装 Rust 稳定版工具链
       - name: Install Rust
         run: rustup toolchain install stable
 
-      # 安装 nextest：增强版测试运行器，支持并行、重试等特性
+      # 安装 cargo-llvm-cov：Rust 代码覆盖率工具（composite action，不走 Docker）
+      - name: Install cargo-llvm-cov
+        uses: taiki-e/install-action@cargo-llvm-cov
+
+      # 安装 nextest：增强版测试运行器（composite action，不走 Docker）
       - name: Install nextest
         uses: taiki-e/install-action@nextest
+
+      # 安装 git-cliff：changelog 生成工具（composite action，不走 Docker）
+      - name: Install git-cliff
+        uses: taiki-e/install-action@git-cliff
 
       # 缓存构建产物，加速后续 CI 运行
       - uses: Swatinem/rust-cache@v2
@@ -61,3 +73,16 @@ jobs:
       # 4. 运行测试：使用 nextest 执行项目中的所有测试用例
       - name: Execute rust tests
         run: cargo nextest run --all-features --no-tests warn
+
+      # 5. 生成 changelog 并创建 Release（仅在打 tag 时触发）
+      - name: Generate changelog and create release
+        if: startsWith(github.ref, 'refs/tags/')
+        env:
+          GITHUB_REPO: ${{ github.repository }}
+        run: |
+          # 生成 changelog
+          changelog=$(git-cliff --latest --strip header)
+          # 创建 GitHub Release
+          gh release create "${{ github.ref_name }}" \
+            --title "${{ github.ref_name }}" \
+            --notes "$changelog"
