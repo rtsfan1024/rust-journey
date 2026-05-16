@@ -1,22 +1,35 @@
+# pre-commit 配置文件
+# 在 git commit 前自动运行代码检查，确保提交的代码符合质量标准
+# 安装：pipx install pre-commit && pre-commit install
+# 手动运行所有检查：pre-commit run --all-files
+
+# 某个 hook 失败时是否继续执行剩余 hook（false = 继续执行）
 fail_fast: false
+
 repos:
+  # ==================== 通用文件检查 ====================
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.3.0
     hooks:
-      - id: check-byte-order-marker
-      - id: check-case-conflict
-      - id: check-merge-conflict
-      - id: check-symlinks
-      - id: check-yaml
-      - id: end-of-file-fixer
-      - id: mixed-line-ending
-      - id: trailing-whitespace
+      - id: check-byte-order-marker    # 检查文件是否有 BOM 头（UTF-8 不需要 BOM）
+      - id: check-case-conflict        # 检查文件名大小写冲突（跨平台兼容）
+      - id: check-merge-conflict       # 检查是否遗留了合并冲突标记（<<<<<<）
+      - id: check-symlinks             # 检查符号链接是否有效
+      - id: check-yaml                 # 检查 YAML 文件语法是否正确
+      - id: end-of-file-fixer          # 确保文件以换行符结尾
+      - id: mixed-line-ending          # 检查并统一换行符（LF vs CRLF）
+      - id: trailing-whitespace        # 删除行尾多余空格
+
+  # ==================== Python 代码格式化 ====================
   - repo: https://github.com/psf/black
     rev: 22.10.0
     hooks:
-      - id: black
+      - id: black                      # Python 代码格式化工具
+
+  # ==================== Rust 项目检查 ====================
   - repo: local
     hooks:
+      # 1. 格式检查：代码是否符合 rustfmt 规范
       - id: cargo-fmt
         name: cargo fmt
         description: Format files with rustfmt.
@@ -24,6 +37,8 @@ repos:
         language: rust
         files: \.rs$
         args: []
+
+      # 2. 依赖审计：检查依赖的许可证、安全漏洞、来源等
       - id: cargo-deny
         name: cargo deny check
         description: Check cargo dependencies
@@ -31,6 +46,8 @@ repos:
         language: rust
         files: \.rs$
         args: []
+
+      # 3. 拼写检查：扫描整个仓库的拼写错误
       - id: typos
         name: typos
         description: check typo
@@ -38,6 +55,8 @@ repos:
         language: rust
         files: \.*$
         pass_filenames: false
+
+      # 4. 编译检查：代码能否通过编译
       - id: cargo-check
         name: cargo check
         description: Check the package for errors.
@@ -45,6 +64,8 @@ repos:
         language: rust
         files: \.rs$
         pass_filenames: false
+
+      # 5. 静态分析：clippy 检查代码规范和潜在问题
       - id: cargo-clippy
         name: cargo clippy
         description: Lint rust sources
@@ -52,6 +73,8 @@ repos:
         language: rust
         files: \.rs$
         pass_filenames: false
+
+      # 6. 运行测试：执行项目中的所有测试用例
       - id: cargo-test
         name: cargo test
         description: unit test for the project
